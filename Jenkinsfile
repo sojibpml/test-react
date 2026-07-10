@@ -10,7 +10,7 @@ pipeline {
         stage('Code Checkout') {
             steps {
                 git branch: 'main', 
-                    url: 'https://github.com/sojibpml/test-react'
+                    url: 'https://github.com/sojibpml/test-react.git'
             }
         }
 
