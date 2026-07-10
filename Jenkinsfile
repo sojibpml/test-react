@@ -2,14 +2,19 @@ pipeline {
     agent any
 
     tools {
-        // যদি Jenkins এ NodeJS প্লাগইন সেটআপ করে থাকেন
-        nodejs 'NodeJS-14' 
+        nodejs 'NodeJS-20'
+    }
+
+    environment {
+        DOCKER_IMAGE = "test-react-app"
+        CONTAINER_NAME = "test-react-container"
     }
 
     stages {
-        stage('Code Checkout') {
+
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', 
+                git branch: 'main',
                     url: 'https://github.com/sojibpml/test-react.git'
             }
         }
@@ -20,35 +25,45 @@ pipeline {
             }
         }
 
-        stage('Run Tests (যদি থাকে)') {
-            steps {
-                sh 'npm test -- --watchAll=false'
-            }
-        }
-
         stage('Build React App') {
             steps {
                 sh 'npm run build'
             }
         }
 
-        stage('Deploy to Server (উদাহরণ)') {
+        stage('Build Docker Image') {
             steps {
-                sh '''
-                    # বিল্ড ফাইল কপি করা (যেমন Nginx সার্ভারে)
-                    sudo rm -rf /var/www/html/*
-                    sudo cp -r build/* /var/www/html/
-                '''
+                sh "docker build -t ${DOCKER_IMAGE} ."
+            }
+        }
+
+        stage('Deploy Docker Container') {
+            steps {
+                sh """
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+
+                docker run -d \
+                    --name ${CONTAINER_NAME} \
+                    -p 80:80 \
+                    --restart unless-stopped \
+                    ${DOCKER_IMAGE}
+                """
             }
         }
     }
 
     post {
         success {
-            echo '🎉 বিল্ড ও ডিপ্লয় সফল হয়েছে!'
+            echo 'Pipeline Successfully Completed.'
         }
+
         failure {
-            echo '❌ বিল্ড ব্যর্থ হয়েছে! লগ চেক করুন।'
+            echo 'Pipeline Failed.'
+        }
+
+        always {
+            echo 'Pipeline Finished.'
         }
     }
 }
