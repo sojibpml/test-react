@@ -1,0 +1,42 @@
+
+Day 4: Effects & Lifecycle
+ ├─ Fetching API data
+ ├─ Dependency array
+ ├─ Cleanup functions
+
+Day 5: Advanced Components
+ ├─ Context API (React + TypeScript)
+ ├─ useContext hook
+ ├─ useReducer for complex state
+ ├─ Compound components pattern
+
+Day 6: Routing & Navigation
+ ├─ React Router setup
+ ├─ Route params
+ ├─ Nested routes
+ ├─ Redirects & NotFound pages
+
+Day 7: Forms & Validation
+ ├─ Controlled forms
+ ├─ TypeScript form typing
+ ├─ Validation (React Hook Form or custom)
+ ├─ Submit handling
+
+Day 8: Advanced State Management
+ ├─ Global state with Context
+ ├─ Introduction to Redux / Zustand / Pinia (for React, use Zustand/Redux)
+ ├─ Persist state (localStorage)
+ ├─ Derived/computed state
+
+Day 9: Performance Optimization
+ ├─ Memoization: React.memo, useMemo, useCallback
+ ├─ Code splitting / lazy loading
+ ├─ Avoid unnecessary re-renders
+ ├─ Virtualized lists
+
+Day 10: Testing & Deployment
+ ├─ Unit testing with Jest + React Testing Library
+ ├─ Integration tests
+ ├─ E2E tests (Cypress optional)
+ ├─ Deployment (Vercel/Netlify)
+
